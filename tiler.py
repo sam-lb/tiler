@@ -8,7 +8,6 @@ from scipy.ndimage import uniform_filter, gaussian_filter
 IMAGE_NAME = "blue_bird.jpg"
 INPUT_FILE = "./test_images/{}".format(IMAGE_NAME)
 OUTPUT_FILE = "./out_images/{}_processed.jpg".format(IMAGE_NAME.split(".")[0])
-os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 
 img = Image.open(INPUT_FILE).convert("RGB")
 img_np = np.array(img)
