@@ -16,8 +16,8 @@ h, w = img_np.shape[:2]
 def compute_variance_map(img_np, ksize=9):
     img_f = img_np.astype(np.float32)
     mean = uniform_filter(img_f, size=(ksize, ksize, 1))
-    sq_mean = uniform_filter(img_f**2, size=(ksize, ksize, 1))
-    var = sq_mean - mean**2
+    sq_mean = uniform_filter(img_f ** 2, size=(ksize, ksize, 1))
+    var = sq_mean - mean ** 2
     var_map = np.sum(var, axis=2)
     return var_map
 
@@ -31,7 +31,8 @@ indices = np.random.choice(h * w, size=num_adaptive_points, p=prob_map.ravel())
 ys, xs = np.unravel_index(indices, (h, w))
 adaptive_points = np.column_stack((xs, ys)).astype(np.float32)
 
-corner_pts = np.array([[0,0], [0,h-1], [w-1,0], [w-1,h-1]])
+corner_pts = np.array([[0, 0], [0, h - 1],
+                       [w - 1, 0], [w - 1, h - 1]])
 points = np.vstack((adaptive_points, corner_pts))
 
 tri = Delaunay(points)
