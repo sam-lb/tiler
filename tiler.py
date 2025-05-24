@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-from PIL import Image
+from PIL import Image, ImageSequence
 from scipy.spatial import Delaunay
 from scipy.ndimage import uniform_filter, gaussian_filter
 
@@ -42,3 +42,19 @@ def compute_adaptive_triangulation(img, num_adaptive_points=5000, save_target=No
     output = Image.fromarray(output)
     if not (save_target is None): output.save(save_target)
     return output
+
+def compute_adaptive_triangulation_gif(gif, num_adaptive_points=5000, save_target=None, fps=30):
+    frames = []
+    for frame in ImageSequence.Iterator(gif):
+        processed = compute_adaptive_triangulation(frame.convert("RGB"), num_adaptive_points)
+        frames.append(processed)
+
+    millis = int(1000 / fps)
+    
+    if not(save_target is None):
+        frames[0].save(
+            save_target, append_images=frames[1:],
+            duration=millis, loop=0
+        )
+
+    return frames
