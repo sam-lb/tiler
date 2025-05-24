@@ -1,2 +1,3 @@
 test_images/
 out_images/
+__pycache__/
